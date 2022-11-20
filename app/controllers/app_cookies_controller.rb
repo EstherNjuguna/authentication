@@ -11,4 +11,6 @@ def show
         appcookies: cookies
     }
     end
+    # def destroy_cookie
+    #     cookies.delete :
 end
