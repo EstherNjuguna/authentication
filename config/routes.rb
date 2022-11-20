@@ -10,4 +10,7 @@ Rails.application.routes.draw do
   post '/sessions/create_one/:uid', to: "app_session#create_one"
   post '/sessions/create_o/:username', to: "app_session#create_o"
   post '/sessions/create_s/:username', to: "app_session#create_s"
+post '/people/login', to: "people#login"
+get '/people/show', to: "people#show"
+delete '/people/logout', to: "people#logout"
 end
