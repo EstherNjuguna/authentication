@@ -1,11 +1,16 @@
+
 class PeopleController < ApplicationController
 before_action :authorized?
-skip_before_action :authorized?, only: [:login]
+skip_before_action :authorized?, only: [:login, :createaccount]
 def login
+    hashed_password = Digest::MD5.new
+        
 username = params[:username]
-password= params[:password]
+    hashed_password.update(params[:password])
+
+# password= params[:password]
 user = Person.where(
-    username: username, password: password
+    username: username, password: hashed_password.hexdigest
 ).first
 if user
     session[:user] = user.id
@@ -17,7 +22,7 @@ if user
    else
     render json: {
         message: 'failed login'
-    }, status: :not_found
+    }, status: :unauthorized
     
    end
 end
@@ -26,6 +31,14 @@ def show
     render json:{
         people: users
     }
+end
+def createaccount
+    hashed_password = Digest::MD5.new
+    hashed_password.update(params[:password])
+    
+    essy = Person.create(username: params[:username],password: hashed_password.hexdigest)
+render json: {
+    message: "created successfully"}, status: :created
 end
 def logout
     session.delete :user
