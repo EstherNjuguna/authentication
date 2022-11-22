@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post '/sessions/create_o/:username', to: "app_session#create_o"
   post '/sessions/create_s/:username', to: "app_session#create_s"
 post '/people/login', to: "people#login"
+post '/user/login', to: "user#login"
 get '/people/show', to: "people#show"
 delete '/people/logout', to: "people#logout"
 post '/people/createaccount', to: "people#createaccount"
